@@ -1,0 +1,16 @@
+class Solution {
+    public int maxProfit(int[] P) {
+        int n = P.length;
+        int[] min = new int[n];
+        min[n-1] = P[n-1];
+        for( int i = n-2 ; i >= 0 ; i-- ){
+            min[i] = Math.max(P[i], min[i+1]);
+        }
+
+        int profit = 0;
+        for( int i = 0; i <  n ; i++ ){
+            profit = Math.max(profit, min[i] - P[i]);
+        }
+        return profit;
+    }
+}
