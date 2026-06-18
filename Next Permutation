@@ -1,0 +1,42 @@
+
+class Solution {
+    public void nextPermutation(int[] N) {
+
+        int n = N.length;
+        int i = n - 2;
+        while (i >= 0 && N[i] >= N[i + 1]) {
+            i--;
+        }
+
+        if (i < 0) {
+            sort(N, 0, n-1);
+            return;
+        }
+
+        int next = Integer.MAX_VALUE, swap = i;
+        for (int s = i; s < n; s++) {
+            if (N[s] > N[i] && N[s] <= next) {
+                next = N[s];
+                swap = s;
+            }
+        }
+        
+        swap(N, i, swap);
+
+        sort(N, i+1, n-1);
+    }
+    
+    private void swap(int[] N, int i, int j){
+        int temp = N[i];
+        N[i] = N[j];
+        N[j] = temp;
+    }
+
+    private void sort(int[] N, int i, int j){
+        while (i <= j) {
+            swap(N, i, j);
+            j--;
+            i++;
+        }
+    }
+}
