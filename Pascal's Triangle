@@ -1,0 +1,24 @@
+class Solution {
+    public List<List<Integer>> generate(int N) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> A2 = List.of(1);
+        ans.add(A2);
+        if (N == 1) {
+            return ans;
+        }
+        
+        for (int i = 2; i <= N; i++) {
+            List<Integer> last = A2;
+            List<Integer> newList = new ArrayList<>();
+            newList.add(1);
+            for (int j = 1; j < last.size(); j++) {
+                int val = last.get(j) + last.get(j - 1);
+                newList.add(val);
+            }
+            newList.add(1);
+            ans.add(newList);
+            A2 = newList;
+        }
+        return ans;
+    }
+}
