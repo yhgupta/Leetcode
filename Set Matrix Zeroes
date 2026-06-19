@@ -1,0 +1,53 @@
+
+class Solution {
+    public void setZeroes(int[][] M) {
+        boolean rowZero = false, colZero = false;
+        int n = M.length, m = M[0].length;
+        for( int i = 0 ; i < m ; i++ ){
+            if (M[0][i] == 0) {
+                colZero = true;
+                break;
+            }
+        }
+
+        for (int[] ints : M) {
+            if (ints[0] == 0) {
+                rowZero = true;
+                break;
+            }
+        }
+
+        for( int i = 1 ; i < n ; i++ ){
+            for( int j = 1 ; j < m ; j++ ){
+                if( M[i][j] == 0 ){
+                    M[i][0] = 0;
+                    M[0][j] = 0;
+                }
+            }
+        }
+        
+        for( int j = 1 ; j < m ; j++){
+            if( M[0][j] == 0 ){
+                for( int i = 0 ; i < n ; i++ ){
+                    M[i][j] = 0;
+                }
+            }
+        }
+
+        for( int i = 1 ; i < n ; i++ ){
+            if( M[i][0] == 0 ){
+                Arrays.fill(M[i], 0);
+            }
+        }
+
+        if( colZero ){
+            Arrays.fill(M[0], 0);
+        }
+
+        if( rowZero){
+            for( int i = 0 ; i < n ; i++ ){
+                M[i][0] = 0;
+            }
+        }
+    }
+}
