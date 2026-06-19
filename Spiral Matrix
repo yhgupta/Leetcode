@@ -1,0 +1,37 @@
+class Solution {
+    public List<Integer> spiralOrder(int[][] M) {
+        int n = M.length, m = M[0].length;
+        List<Integer> ans = new ArrayList<>();
+
+        int i = 0, j = 0;
+        int count = 0;
+        while (count < n * m) {
+            for (int p = j; p < m - j; p++) {
+                ans.add(M[i][p]);
+                count++;
+            }
+
+            for (int p = i + 1; p < n - i; p++) {
+                ans.add(M[p][m - 1 - j]);
+                count++;
+            }
+
+            if (count >= n * m) {
+                break;
+            }
+
+            for (int p = m - 1 - i - 1; p >= i; p--) {
+                ans.add(M[n - 1 - i][p]);
+                count++;
+            }
+
+            for (int p = n - 1 - j - 1; p > j; p--) {
+                ans.add(M[p][j]);
+                count++;
+            }
+            i++;
+            j++;
+        }
+        return ans;
+    }
+}
