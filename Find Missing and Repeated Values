@@ -1,0 +1,23 @@
+class Solution {
+    public int[] findMissingAndRepeatedValues(int[][] G) {
+        int n = G.length;
+        int[] ans = new int[2];
+
+        int[] F = new int[n*n+1];
+        for (int[] row : G) {
+            for (int num : row) {
+                F[num]++;
+            }
+        }
+
+        for (int num = 1; num <= n * n; num++) {
+            if (F[num] == 0) {
+                ans[1] = num;
+            } else if (F[num] == 2) {
+                ans[0] = num;
+            }
+        }
+
+        return ans;
+    }
+}
