@@ -1,0 +1,39 @@
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        int k = 3; // <-- generic
+        int threshold = nums.length / k;
+        Map<Integer, Integer> candidates = new HashMap<>();
+ 
+        
+        for (int num : nums) {
+            if (candidates.containsKey(num)) {
+                candidates.put(num, candidates.get(num) + 1);
+            } else if (candidates.size() < k - 1) {
+                candidates.put(num, 1);
+            } else {
+                for (int key : new ArrayList<>(candidates.keySet())) {
+                    candidates.put(key, candidates.get(key) - 1);
+                    if (candidates.get(key) == 0) {
+                        candidates.remove(key);
+                    }
+                }
+            }
+        }
+ 
+        Map<Integer, Integer> counts = new HashMap<>();
+        for (int num : nums) {
+            if (candidates.containsKey(num)) {
+                counts.put(num, counts.getOrDefault(num, 0) + 1);
+            }
+        }
+ 
+        List<Integer> result = new ArrayList<>();
+        for (int candidate : candidates.keySet()) {
+            if (counts.get(candidate) > threshold) {
+                result.add(candidate);
+            }
+        }
+ 
+        return result;
+    }
+}
