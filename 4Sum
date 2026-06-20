@@ -1,0 +1,46 @@
+class Solution {
+    public List<List<Integer>> fourSum(int[] N, int T) {
+        Arrays.sort(N);
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int i = 0; i < N.length - 3; i++) {
+            if (i > 0 && N[i] == N[i - 1]) {
+                continue;
+            }
+            ans.addAll(threeSum(N, i, T - N[i]));
+        }
+        return ans;
+    }
+
+    public List<List<Integer>> threeSum(int[] N, int i, long T) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int n = N.length;
+        for (int j = i + 1; j < n; j++) {
+            if (j > i + 1 && N[j] == N[j - 1]) {
+                continue;
+            }
+
+            int l = j + 1, r = n - 1;
+            while (l < r) {
+                long total = (long) N[j] + N[l] + N[r];
+
+                if (total < T) {
+                    l++;
+                } else if (total > T) {
+                    r--;
+                } else {
+                    ans.add(List.of(N[i], N[j], N[l], N[r]));
+                    l++;
+
+                    while (l < r && N[l] == N[l - 1]) {
+                        l++;
+                    }
+
+                    while (l < r && N[r] == N[r - 1]) {
+                        r--;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+}
