@@ -1,0 +1,30 @@
+class Solution {
+    public int[][] merge(int[][] I) {
+        Arrays.sort(I, new Comparator<int[]>(){
+            @Override
+            public int compare(int[] o1, int[] o2){
+                return Integer.compare(o1[0], o2[0]);
+            }
+        });
+
+        List<int[]> L = new ArrayList<>();
+        int[] P = I[0];
+        for( int i = 1 ; i < I.length ; i++ ){
+            if( P[1] >= I[i][0] ){
+                P[0] = Math.min(P[0], I[i][0]);
+                P[1] = Math.max(P[1], I[i][1]);
+            } else {
+                int[] A = new int[]{P[0], P[1]};
+                L.add(A);
+                P = I[i];
+            }
+        }
+        L.add(P);
+
+        int[][] ans = new int[L.size()][];
+        for( int i = 0 ; i < L.size() ; i++ ){
+            ans[i] = L.get(i);
+        }
+        return ans;
+    }
+}
