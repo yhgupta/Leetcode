@@ -1,0 +1,49 @@
+class Solution {
+    public int search(int[] N, int T) {
+        int minIndex = minimumIndex(N);
+        int n = N.length;
+        if( N[minIndex] == T ){
+            return minIndex;
+        } else if( T <= N[n-1] ){
+            return binarySearch(N, T, minIndex, N.length-1);
+        } 
+        return binarySearch(N, T, 0, minIndex-1);
+    }
+
+    public int binarySearch(int[] N, int T, int i, int j){
+        while(i <= j){
+            int mid = i + (j-i)/2;
+            if(N[mid] == T){
+                return mid;
+            }
+
+            if( N[mid] > T){
+                j = mid-1;
+            } else {
+                i = mid+1;
+            }
+        }
+        return -1;
+    }
+
+    public int minimumIndex(int[] N){
+        int i = 0, j = N.length-1, mid = 0;
+        int ans = 0;
+        if(N[i] < N[j] && i == 0){
+            return 0;
+        }
+        while(i < j){
+            mid = i + (j-i)/2;
+            if( mid-1 >= 0 &&  N[mid] < N[mid-1]){
+                return mid;
+            }
+
+            if( N[mid] > N[j] ){
+                i = mid+1;
+            } else {
+                j = mid-1;
+            }
+        }
+        return i;
+    }
+}
