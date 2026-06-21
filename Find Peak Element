@@ -1,0 +1,21 @@
+class Solution {
+    public int findPeakElement(int[] N) {
+        int n = N.length, mid = 0;
+
+    
+        int s = 0, e = n - 1;
+        while (s <= e) {
+            mid = s + (e - s) / 2;
+            if (mid > 0 && mid < n - 1 && N[mid] > N[mid - 1] && N[mid] > N[mid + 1]) {
+                return mid ;
+            }
+
+            if (mid < n - 1 &&N[mid] < N[mid + 1]) {
+                s = mid + 1;
+            } else {
+                e = mid - 1;
+            }
+        }
+        return mid;
+    }
+}
