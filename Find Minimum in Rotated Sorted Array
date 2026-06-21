@@ -1,0 +1,18 @@
+class Solution {
+    public int findMin(int[] N) {
+        int n = N.length, s = 0, e = n-1, mid = 0;
+        while( s < e ) {
+            mid = s + (e-s)/2;
+            if( mid-1 >= 0 && mid+1 < n && N[mid] < N[mid-1] && N[mid] < N[mid+1] ){
+                return N[mid];
+            }
+
+            if ( N[mid] > N[e] ){
+                s = mid+1;
+            } else {
+                e = mid-1;
+            }
+        }
+        return N[s];
+    }
+}
