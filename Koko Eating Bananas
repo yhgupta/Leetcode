@@ -1,0 +1,36 @@
+class Solution {
+    public int minEatingSpeed(int[] P, int H) {
+        long sum = 0;
+        for (int j : P) {
+            sum += j;
+        }
+        return Math.toIntExact(BS(P, H, 0L, sum));
+    }
+
+    private long BS(int[] P, int H, long S, long E){
+        while( S < E ){
+            long mid = S + (E-S)/2;
+            if( mid == 0 ){
+                return 1;
+            }
+            long val = validate(P, mid);
+            if( val <= H ){
+                E = mid;
+            } else {
+                S = mid+1;
+            }
+        }
+        return S;
+    }
+
+    private long validate(int[] P, long K){
+        long count = 0;
+        for (int j : P) {
+            long mod = j % K;
+            long val = j / K;
+            count += val;
+            count += ((mod != 0) ? 1 : 0);
+        }
+        return count;
+    }
+}
