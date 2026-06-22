@@ -1,0 +1,27 @@
+class Solution {
+    public boolean isAnagram(String S, String T) {
+        int[] a1 = new int[26];
+      
+        char[] cx = S.toCharArray();
+        char[] tx = T.toCharArray();
+
+        if( S.length() != T.length()  ){
+            return false;
+        }
+
+        for( int i = 0 ; i < S.length() ; i++ ){
+            a1[cx[i] - 'a']++;
+        }
+
+
+        for( int i = 0 ; i < S.length() ; i++ ){
+            int val = tx[i] - 'a';
+            a1[val]--;
+            if( a1[val] < 0 ){
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
