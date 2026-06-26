@@ -1,0 +1,23 @@
+class Solution {
+    int ans = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        maxPathSumX(root);
+        return ans;
+    }
+
+    public int maxPathSumX(TreeNode root){
+        if(root == null ){
+            return 0;
+        }
+        if( root.left == null && root.right == null){
+            ans = Math.max(ans, root.val);
+            return root.val;
+        }
+        int left = maxPathSumX(root.left);
+        int right = maxPathSumX(root.right);
+        int ansX = root.val;
+        ans = Math.max(ans, ansX + Math.max(left, right));
+        ans = Math.max(ans, ansX+left+ right);
+        return ansX + Math.max(left, right);       
+    }
+}
